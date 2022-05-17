@@ -6,13 +6,13 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 06:56:23 by mmakboub          #+#    #+#             */
-/*   Updated: 2022/04/26 07:49:41 by mmakboub         ###   ########.fr       */
+/*   Updated: 2022/05/16 22:25:50 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void ft_reading_intern_map(t_compstjeu *jeu)
+int ft_reading_intern_map(t_compstjeu *jeu)
 {
 	int i;
 	int j;
@@ -24,18 +24,23 @@ void ft_reading_intern_map(t_compstjeu *jeu)
 		while (jeu->map[i][j])
 		{
 			if (jeu->map[i][j] == 'P')
-			{
 				jeu->joueur++;
-			//add fonction that determinate player position
-			}
-			if (jeu->map[i][j] == 'E')
+			else if (jeu->map[i][j] == 'E')
 				jeu->exit++;
-			if (jeu->map[i][j] == 'C')
+			else if (jeu->map[i][j] == 'C')
 				jeu->collectbls++;
+			else if(jeu->map[i][j] != '1' && jeu->map[i][j] != '0' && jeu->map[i][j] != '\n')
+				{
+					ft_putstr("Oops!! invalid map");
+					exit(0);
+					return(0);
+				}
+				
 			j++;
 		}
 		i++;
 	}
+	return(jeu->collectbls);
 }
 int ft_compteur_de_ligne(char *fichier)
 {
@@ -61,6 +66,7 @@ int ft_readline_maps(t_compstjeu *jeu, char *fichier)
 {
 	int fd;
 	char *ptr;
+	int len = strlen(ptr);
 	fd = open(fichier, O_RDONLY);
 	if (fd < 0)
 	{
@@ -76,8 +82,7 @@ int ft_readline_maps(t_compstjeu *jeu, char *fichier)
 	{
 		ptr = get_next_line(fd);
 		if (!ptr)
-			break;
-		int len = strlen(ptr);
+			break ;
 		if (*ptr == '\n' || (i == jeu->mapsline - 1 && ptr[len - 1] == '\n'))
 		{
 			ft_putstr("Error line !\n");
@@ -85,6 +90,11 @@ int ft_readline_maps(t_compstjeu *jeu, char *fichier)
 		}
 		if (ptr[len - 1] == '\n')
 			ptr[len - 1] = 0;
+		if (ft_strchr(ptr, 'P') != NULL)
+		{
+			jeu->ordonnee = i;
+			jeu->abscisse = ft_strchr(ptr, 'P') - ptr;
+		}
 		jeu->map[i++] = ptr;
 	}
 	jeu->map[i] = NULL;

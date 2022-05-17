@@ -7,6 +7,8 @@ int ft_check_lines_extremity(t_compstjeu *jeu)
 	int i;
 
 	len = ft_strlen(jeu->map[0]);
+	if (jeu->map[0][len - 1] == '\n')
+		len--;
 	i = 0;
 	while (jeu->map[i])
 	{
@@ -16,16 +18,22 @@ int ft_check_lines_extremity(t_compstjeu *jeu)
 	}
 	return (1);
 }
-int ft_check_map_form(t_compstjeu *jeu) //savoir la lonfeur du premiere ligne et la commparer avec les autres lignes
+int ft_check_map_form(t_compstjeu *jeu) 
 {
 	int len;
+	int cmp;
 	int i;
 
 	i = 0;
 	len = ft_strlen(jeu->map[0]);
+	if (jeu->map[0][len - 1] == '\n')
+		len--;
 	while (jeu->map[i])
 	{
-		if (len != ft_strlen(jeu->map[i]))
+		cmp = ft_strlen(jeu->map[i]);
+		if (jeu->map[i][cmp - 1] == '\n') 
+			cmp--;
+		if (len != cmp)
 			return (0);
 		i++;
 	}
@@ -37,7 +45,7 @@ int ft_checkfirst_lastline(t_compstjeu *jeu)
 	int i;
 
 	i = 0;
-	while (jeu->map[0][i] && jeu->map[jeu->mapsline - 1][i])
+	while (jeu->map[0][i] && jeu->map[0][i] != '\n')
 	{
 		if (jeu->map[0][i] != '1' || jeu->map[jeu->mapsline - 1][i] != '1')
 			return (0);
