@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 06:56:23 by mmakboub          #+#    #+#             */
-/*   Updated: 2022/05/16 19:35:03 by mmakboub         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:11:09 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ int ft_compteur_de_ligne(char *fichier)
 			break;
 		}
 		count++;
+		free(line);
 	}
 	return (count);
 }
+
 int ft_readline_maps(t_compstjeu *jeu, char *fichier)
 {
 	int fd;
@@ -65,13 +67,13 @@ int ft_readline_maps(t_compstjeu *jeu, char *fichier)
 	fd = open(fichier, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr("error in reading maps\n");
+		ft_putstr("error in reading file\n");
 		exit(1);
 	}
 	jeu->mapsline = ft_compteur_de_ligne(fichier);
 	jeu->map = (char **)malloc((jeu->mapsline + 1) * sizeof(char *)); 
 	if (!(jeu->map))
-		return (0);
+		exit(0);
 	int i = 0;
 	while (1)
 	{

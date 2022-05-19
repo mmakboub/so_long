@@ -1,59 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fct_auxiliares.c                                   :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 22:10:03 by mmakboub          #+#    #+#             */
-/*   Updated: 2022/05/19 00:37:50 by mmakboub         ###   ########.fr       */
+/*   Created: 2021/11/11 11:59:19 by mmakboub          #+#    #+#             */
+/*   Updated: 2022/05/19 01:01:30 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"so_long.h"
+#include "so_long.h"
 
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
-}
-
-void	ft_putnbr(int nbr)
-{
-	long	n;
-
-	n = nbr;
-	if (nbr > 9)
-		ft_putnbr(nbr / 10);
-	ft_putchar(nbr % 10 + '0');
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-static int	lencalculate(long int a)
+static int	lencalculate2(long int a)
 
 {
 	int	len;
@@ -73,13 +32,13 @@ static int	lencalculate(long int a)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa2(int n)
 {
 	int			len;
 	char		*p;
 	long int	nbr;
 
-	len = lencalculate(n);
+	len = lencalculate2(n);
 	nbr = n;
 	if (nbr < 0)
 		nbr *= -1;

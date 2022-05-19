@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 03:49:31 by mmakboub          #+#    #+#             */
-/*   Updated: 2022/05/16 21:02:18 by mmakboub         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:20:07 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_compstjeu{
 	void *mur_img;
 	void *base_du_sol_img;
 	void *exit_img;
-	void *ennemy_img;
 	int  mapsline;
 	void *mlx;
 	void *win;
@@ -40,6 +39,12 @@ typedef struct s_compstjeu{
 	int exit;
 	int movesnbr;
 	int ennemy;
+	void *ennemy_img;
+	void *ennemy1_img;
+	void *ennemy2_img;
+	void *ennemy3_img;
+	void *ennemy4_img;
+	void *ennemy5_img;
 
 }t_compstjeu;
 
@@ -62,11 +67,13 @@ void	A_key0(t_compstjeu *jeu);
 void 	controling_exit(t_compstjeu *jeu);
 int		checking_keys(int keycode, t_compstjeu	*jeu);
 int	    quittekeys53(int keycode, t_compstjeu	*jeu);
-void	free_map(t_compstjeu *jeu);
-int		quittekey17(int keycode, t_compstjeu *jeu);
+int		quittekey17(t_compstjeu *jeu);
 void	puting_image(t_compstjeu	*jeu);
 void	xpmfile_to_image(t_compstjeu	*jeu);
 void	ft_putnbr(int d);
 void	ft_putchar(char c);
-int		deal_key(int key, t_compstjeu *jeu);
+static int	animation(t_compstjeu *jeu);
+static int	lencalculate2(long int a);
+char	*ft_itoa(int n);
+char	*ft_strjoin2( char *s1,  char *s2);
 #endif

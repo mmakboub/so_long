@@ -6,11 +6,24 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:26:13 by mmakboub          #+#    #+#             */
-/*   Updated: 2022/05/16 20:46:06 by mmakboub         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:56:30 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	free_map(t_compstjeu *jeu)
+{
+	int	i;
+
+	i = 0;
+	while (jeu->map[i])
+	{
+		free(jeu->map[i]);
+		i++;
+	}
+	 free(jeu->map);
+}
 
 void controling_exit(t_compstjeu *jeu)
 {
@@ -40,7 +53,6 @@ void	controling_moves(int keycode, t_compstjeu *jeu)
 	int y;
 	x = jeu->abscisse;
 	y = jeu->ordonnee;
-	//printf("x %d y %x\n", x, y);
 	if(keycode == 13 && y - 1 >= 0 && jeu->map[y - 1][x] != '1')
 		W_key13(jeu);
 	if(keycode == 0 && x - 1 >= 0 && jeu->map[y][x - 1] != '1')
@@ -61,26 +73,10 @@ int	quittekeys53(int keycode, t_compstjeu	*jeu)
 
 int	checking_keys(int keycode, t_compstjeu	*jeu)
 {
-	//printf("press %d jeu %p\n", keycode, jeu);
-	int x;
-	int y;
-	x = jeu->abscisse;
-	y = jeu->ordonnee;
 	if(keycode == 53)
 		quittekeys53(keycode, jeu);
 	if((keycode >= 0 && keycode <= 2) || keycode == 13)
-	{
 		controling_moves(keycode, jeu);
-		
-	}
-	/*int i = 0;
-	while (jeu->map[i])
-	{
-		printf("%s\n", jeu->map[i]);
-		i++;
-	}*/
-	mlx_clear_window(jeu->mlx, jeu->win);
-	puting_image(jeu);
 	printf(" moves = %d\n",jeu->movesnbr);
 	return(0);
 }
